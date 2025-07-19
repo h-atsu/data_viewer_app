@@ -12,8 +12,8 @@ import {
   Box,
   Chip
 } from '@mui/material';
-import type { TableData } from '../archive/App';
-import { queryData } from '../utils/duckdb';
+import type { TableData } from '@/types';
+import { queryData } from '@/utils/duckdb';
 
 interface DataTableProps {
   data: TableData;
@@ -27,7 +27,7 @@ const DataTable: React.FC<DataTableProps> = ({ data: initialData }) => {
   const [currentData, setCurrentData] = useState(initialData);
   const [loading, setLoading] = useState(false);
 
-  const handleChangePage = async (event: unknown, newPage: number) => {
+  const handleChangePage = async (_event: unknown, newPage: number) => {
     setLoading(true);
     try {
       const offset = newPage * rowsPerPage;
@@ -106,7 +106,7 @@ const DataTable: React.FC<DataTableProps> = ({ data: initialData }) => {
         <Table stickyHeader size="small">
           <TableHead>
             <TableRow>
-              {currentData.columns.map((column, index) => (
+              {currentData.columns.map((column: string, index: number) => (
                 <TableCell 
                   key={index}
                   sx={{ 
@@ -128,13 +128,13 @@ const DataTable: React.FC<DataTableProps> = ({ data: initialData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {currentData.rows.map((row, rowIndex) => (
+            {currentData.rows.map((row: any[], rowIndex: number) => (
               <TableRow 
                 key={rowIndex}
                 hover
                 sx={{ '&:nth-of-type(odd)': { backgroundColor: 'action.hover' } }}
               >
-                {row.map((cell, cellIndex) => (
+                {row.map((cell: any, cellIndex: number) => (
                   <TableCell 
                     key={cellIndex}
                     sx={{ 

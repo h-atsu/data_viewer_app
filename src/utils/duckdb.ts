@@ -1,5 +1,5 @@
 import * as duckdb from '@duckdb/duckdb-wasm';
-import type { TableData } from '../archive/App';
+import type { TableData } from '@/types';
 
 let db: duckdb.AsyncDuckDB | null = null;
 
@@ -74,7 +74,7 @@ export const queryData = async (
   limit: number = 100,
   orderBy?: string,
   orderDirection: 'ASC' | 'DESC' = 'ASC'
-): Promise<{ rows: any[][], totalRows: number }> => {
+): Promise<{ columns: string[], rows: any[][], totalRows: number }> => {
   if (!db) throw new Error('DuckDB is not initialized');
   
   const conn = await db.connect();
@@ -104,7 +104,7 @@ export const queryData = async (
       columns.map(col => row[col])
     );
     
-    return { rows, totalRows };
+    return { columns, rows, totalRows };
     
   } finally {
     await conn.close();

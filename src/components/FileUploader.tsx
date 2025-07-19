@@ -9,8 +9,8 @@ import {
 import {
   CloudUpload as CloudUploadIcon
 } from '@mui/icons-material';
-import { readFile } from '../utils/duckdb';
-import type { TableData } from '../archive/App';
+import { readFile } from '@/utils/duckdb';
+import type { TableData } from '@/types';
 
 interface FileUploaderProps {
   onFileLoad: (data: TableData) => void;
